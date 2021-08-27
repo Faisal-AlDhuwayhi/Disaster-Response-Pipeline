@@ -45,6 +45,12 @@ def index():
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
+    # visual 2: top 10 category proportion
+    cat_freq = df.iloc[:, 4:].mean().sort_values(ascending=False)[:10]
+    cat_names = [col.replace("_", " ").title() for col in cat_freq.index]
+    cat_values = cat_freq.values
+
+
     graphs = [
         {
             'data': [
@@ -61,6 +67,24 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=cat_names,
+                    y=cat_values
+                )
+            ],
+
+            'layout': {
+                'title': 'Top 10 Category Proportion',
+                'yaxis': {
+                    'title': "Proportion"
+                },
+                'xaxis': {
+                    'title': "Category"
                 }
             }
         }
